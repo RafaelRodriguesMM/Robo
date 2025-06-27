@@ -5,7 +5,7 @@ import os
 
 inicio = time.time()
 
-tamanho = 10
+tamanho =5
 #gera a matriz tamanho x tamanho com as posicões vazias " "
 matriz = full((tamanho, tamanho), " ")
 
@@ -65,7 +65,7 @@ while True:
         #Ir par a esquerda é mover para a coluna atual - 1, se o jogador tentar ir para a esquerda na coluna de indice 0 o robo não teria casa para ir.
         if (coluna_atual - 1 < 0):
             matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual][9] = 'R'
+            matriz[Linha_atual][coluna_atual + tamanho - 1] = 'R'
         else:
             #A Posição atual do robo vai ficar vazia novamente e a posição a esquerda, neste movimento, vai ficar o robo
             matriz[Linha_atual][coluna_atual] = ' '
@@ -74,7 +74,7 @@ while True:
     elif movimento.lower() == "d":  
         if (coluna_atual + 1 > tamanho - 1):
             matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual][0] = 'R'
+            matriz[Linha_atual][coluna_atual - tamanho + 1] = 'R'
         else:
             matriz[Linha_atual][coluna_atual] = ' '
             matriz[Linha_atual][coluna_atual + 1] = 'R'
@@ -82,7 +82,7 @@ while True:
     elif movimento.lower() == "w": 
         if (Linha_atual - 1 < 0):
             matriz[Linha_atual][coluna_atual] = ' '
-            matriz[9][coluna_atual] = 'R'
+            matriz[Linha_atual + tamanho - 1][coluna_atual] = 'R'
         else:
             matriz[Linha_atual][coluna_atual] = ' '
             matriz[Linha_atual - 1][coluna_atual] = 'R'
@@ -90,7 +90,7 @@ while True:
     elif movimento.lower() == "s":  
         if (Linha_atual + 1 > tamanho - 1):
             matriz[Linha_atual][coluna_atual] = ' '
-            matriz[0][coluna_atual] = 'R'
+            matriz[Linha_atual - tamanho + 1][coluna_atual] = 'R'
 
         else:
             matriz[Linha_atual][coluna_atual] = ' '
