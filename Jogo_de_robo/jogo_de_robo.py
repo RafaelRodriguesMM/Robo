@@ -103,7 +103,7 @@ while True:
         print("digite um movimento valido")
     
     
-    if os.name == 'posix':
+    if os.name == 'posix':#se for linux/Unix/macOS#se for windows
         os.system("clear")
-    elif os.name == 'nt':
+    elif os.name == 'nt':#se for windows
         os.system("cls")
