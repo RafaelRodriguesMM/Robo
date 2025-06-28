@@ -5,7 +5,7 @@ import os
 
 inicio = time.time()
 
-tamanho =5
+tamanho =10
 #gera a matriz tamanho x tamanho com as posicões vazias " "
 matriz = full((tamanho, tamanho), " ")
 
@@ -102,4 +102,8 @@ while True:
     else:
         print("digite um movimento valido")
     
-    os.system("clear")
+    
+    if os.name == 'posix':
+        os.system("clear")
+    elif os.name == 'nt':
+        os.system("cls")
