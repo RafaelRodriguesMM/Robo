@@ -113,7 +113,7 @@ while True:
         print("digite um movimento valido")
     
     
-    if os.name == 'posiposicao_linha':#se for linuposicao_linha/Uniposicao_linha/macOS#se for windows
+    if os.name == 'posix':#se for linux/Unixa/macOS
         os.system("clear")
     elif os.name == 'nt':#se for windows
         os.system("cls")
