@@ -1,16 +1,22 @@
-from numpy import full
+import numpy as np
 from random import randint
 import time
 import os
 
+
 inicio = time.time()
 
 tamanho =10
-#gera a matriz tamanho x tamanho com as posicões vazias " "
-matriz = full((tamanho, tamanho), " ")
+#gera a matriz tamanho posicao_linha tamanho com as posicões vazias " "
+matriz = np.full((tamanho, tamanho), " ")
 
 #O robo comeca da primeira posição para o jogador poder ir movendo a partir dai
-matriz[0][0] = "R"
+
+
+robo = np.array([0, 0])
+posicao_linha = robo[0]
+posicao_coluna = robo[1]
+matriz[posicao_linha][posicao_coluna] = "R"
 
 #preenche a matriz como um numero de pacotes(#) em posições aleatorias
 i = 0
@@ -30,15 +36,11 @@ print("AJUDE O ROBO A COLETAR OS PACOTES: ")
 while True:
     print(matriz)
 
-    #Acha a posição atual do robo
-    for linha in range(0,tamanho):
-        for coluna in range(0,tamanho):
-            if matriz[linha][coluna] == "R":
-                Linha_atual = linha
-                coluna_atual = coluna
-                break
-        if matriz[linha][coluna] == "R":
-                break
+    #Mostra a posição atual do robo na matriz
+
+    print(f"Posições atuais do robo na matriz x = {posicao_linha} y = {posicao_coluna}")
+
+   
     
     #Verifica se ha pacotes restantes(o jogo continua, ou não há pacotes restantes(o jogador venceu))
     pacotes = 0
@@ -63,38 +65,46 @@ while True:
 
     if movimento.lower() == "a":
         #Ir par a esquerda é mover para a coluna atual - 1, se o jogador tentar ir para a esquerda na coluna de indice 0 o robo não teria casa para ir.
-        if (coluna_atual - 1 < 0):
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual][coluna_atual + tamanho - 1] = 'R'
+        posicao_coluna = posicao_coluna - 1
+        if (posicao_coluna < 0):
+            matriz[posicao_linha][posicao_coluna + 1] = ' '
+            matriz[posicao_linha][posicao_coluna + tamanho] = 'R'
+            posicao_coluna = posicao_coluna + tamanho
         else:
             #A Posição atual do robo vai ficar vazia novamente e a posição a esquerda, neste movimento, vai ficar o robo
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual][coluna_atual - 1] = 'R'
+            matriz[posicao_linha][posicao_coluna + 1] = ' '
+            matriz[posicao_linha][posicao_coluna] = 'R'
 
     elif movimento.lower() == "d":  
-        if (coluna_atual + 1 > tamanho - 1):
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual][coluna_atual - tamanho + 1] = 'R'
+        posicao_coluna = posicao_coluna + 1
+        if (posicao_coluna > tamanho - 1):
+            matriz[posicao_linha][posicao_coluna - 1] = ' '
+            matriz[posicao_linha][posicao_coluna - tamanho] = 'R'
+            posicao_coluna = posicao_coluna - tamanho
         else:
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual][coluna_atual + 1] = 'R'
+            matriz[posicao_linha][posicao_coluna - 1] = ' '
+            matriz[posicao_linha][posicao_coluna] = 'R'
 
-    elif movimento.lower() == "w": 
-        if (Linha_atual - 1 < 0):
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual + tamanho - 1][coluna_atual] = 'R'
+    elif movimento.lower() == "w":
+        posicao_linha = posicao_linha - 1
+        if (posicao_linha < 0):
+            matriz[posicao_linha + 1][posicao_coluna] = ' '
+            matriz[posicao_linha + tamanho][posicao_coluna] = 'R'
+            posicao_linha = posicao_linha + tamanho
         else:
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual - 1][coluna_atual] = 'R'
+            matriz[posicao_linha + 1][posicao_coluna] = ' '
+            matriz[posicao_linha][posicao_coluna] = 'R'
 
-    elif movimento.lower() == "s":  
-        if (Linha_atual + 1 > tamanho - 1):
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual - tamanho + 1][coluna_atual] = 'R'
+    elif movimento.lower() == "s":
+        posicao_linha = posicao_linha + 1
+        if (posicao_linha > tamanho - 1):
+            matriz[posicao_linha - 1][posicao_coluna] = ' '
+            matriz[posicao_linha - tamanho][posicao_coluna] = 'R'
+            posicao_linha = posicao_linha - tamanho
 
         else:
-            matriz[Linha_atual][coluna_atual] = ' '
-            matriz[Linha_atual + 1][coluna_atual] = 'R'
+            matriz[posicao_linha - 1][posicao_coluna] = ' '
+            matriz[posicao_linha][posicao_coluna] = 'R'
 
     elif movimento.lower() == "q":
         print("obrigado por jogar o jogo!")
@@ -103,7 +113,7 @@ while True:
         print("digite um movimento valido")
     
     
-    if os.name == 'posix':#se for linux/Unix/macOS#se for windows
+    if os.name == 'posiposicao_linha':#se for linuposicao_linha/Uniposicao_linha/macOS#se for windows
         os.system("clear")
     elif os.name == 'nt':#se for windows
         os.system("cls")
