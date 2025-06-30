@@ -6,29 +6,34 @@ import os
 
 inicio = time.time()
 
-tamanho =10
+tamanho = 10
 #gera a matriz tamanho posicao_linha tamanho com as posicões vazias " "
 matriz = np.full((tamanho, tamanho), " ")
 
 #O robo comeca da primeira posição para o jogador poder ir movendo a partir dai
-
 
 robo = np.array([0, 0])
 posicao_linha = robo[0]
 posicao_coluna = robo[1]
 matriz[posicao_linha][posicao_coluna] = "R"
 
-#preenche a matriz como um numero de pacotes(#) em posições aleatorias
+#preenche a matriz como um numero de pacotes(#) em posições aleatorias(as posições são gravadas na lista)
 i = 0
+
+pacote = []
+lista_pacotes = []
 while i < 5:
     Linha_aleatoria = randint(0,tamanho - 1)
     coluna_aleatoria = randint(0,tamanho - 1)
+    lista_pacotes.append([Linha_aleatoria, coluna_aleatoria])
     # imperde que um pacote seja colocado na posição ocupada pelo robo ou por outro pacote
     if matriz[Linha_aleatoria][coluna_aleatoria] in "R#":
         ""
     else:
         matriz[Linha_aleatoria][coluna_aleatoria] = "#" 
         i = i + 1
+        
+
 
 print("AJUDE O ROBO A COLETAR OS PACOTES: ")
 
@@ -44,14 +49,10 @@ while True:
     
     #Verifica se ha pacotes restantes(o jogo continua, ou não há pacotes restantes(o jogador venceu))
     pacotes = 0
-    for linha in range(0,tamanho):
-        for coluna in range(0,tamanho):
-            if matriz[linha][coluna] == '#':
-                pacotes += 1
-                
-    if pacotes > 0:
-        ''
-    else:
+    for p in lista_pacotes:
+        if matriz[p[0]][p[1]] == "#":
+            pacotes = pacotes + 1            
+    if pacotes == 0:
         print("PARABENS, VOCÊ COLETOU TODOS OS PACOTES")
         fim = time.time()
         tempo = fim - inicio
@@ -64,7 +65,7 @@ while True:
     movimento = str(input("PARA ONDE DESEJA IR:\n[A]esquerda\n[D]direirta\n[W]frente\n[S]baixo\n[Q]sair do jogo\n: "))
 
     if movimento.lower() == "a":
-        #Ir par a esquerda é mover para a coluna atual - 1, se o jogador tentar ir para a esquerda na coluna de indice 0 o robo não teria casa para ir.
+        #Ir par a esquerda é mover para a coluna atual - 1, se o jogador tentar ir para a esquerda na coluna de inlistae 0 o robo não teria casa para ir.
         posicao_coluna = posicao_coluna - 1
         if (posicao_coluna < 0):
             matriz[posicao_linha][posicao_coluna + 1] = ' '
